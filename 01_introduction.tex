@@ -1,0 +1,12 @@
+\section{Introduction}
+\label{sec:intro}
+
+An FPGA payload can combine handwritten RTL with cores produced by high-level synthesis (HLS) or other generators. The structural top connects these modules to buffers, clock-domain-crossing logic, and board interfaces. The testbench must use the same ports and connections.
+
+Module-level tests can miss integration errors such as a reset wired with the wrong polarity or two paths arriving at a merge in different cycles. HLS can also rename ports or change how an interface is represented in RTL. A single change can then require edits to the top level, testbench bindings, source lists, and simulation scripts.
+
+IP-XACT provides a standard representation of IP interfaces and interconnections~\cite{IEEE_IPXACT_1685_2022}. Vivado IP integrator assembles and validates block designs through its graphical editor or Tcl~\cite{AMD_Vivado_IPI_UG994}. FORGE emits Tcl for IP integrator and can generate a structural Verilog top for simulation from the same design description. FuseSoC and Edalize package IP and run EDA tools~\cite{Kindgren2019_FuseSoC}.
+
+FORGE (Framework for Orchestrated RTL Generation and Evaluation) is a Python tool for integrating and verifying FPGA modules. An interface contract maps the physical ports of a module to roles, such as a primary clock, reset, or data input. The topology connects instances through these roles or explicit port maps. FORGE resolves both descriptions into an intermediate representation (IR) for generation and analysis. It can also compare an existing RTL top with a reference using the top's sources and interface metadata.
+
+We tested \forge{} on the Phase-2 Overlap Muon Track Finder (OMTF) of the CMS Level-1 trigger~\cite{CMS_2020_L1TriggerUpgrade_TDR} and on examples and reference consumers distributed with the source. Readers can rerun the public examples. For OMTF, we report results derived from the CMS collaboration's firmware and CI records.

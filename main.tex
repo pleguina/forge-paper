@@ -1,0 +1,169 @@
+%==============================================================================
+%  FORGE: A contract-driven framework for reusable hardware integration and
+%         verification.
+%
+%  Drafted for submission to Open Research Europe (ORE) as a SOFTWARE TOOL
+%  ARTICLE. ORE runs on the F1000Research platform; the section order below
+%  (Introduction, Methods, Use cases, Discussion, availability and
+%  author information) follows a software-tool article structure.
+%
+%  The framework core is algorithm- and domain-agnostic. The use cases are a
+%  production trigger processor (the Phase-2 CMS OMTF) and the reference
+%  consumers shipped with the framework (trigger_demo, vision_pipeline_demo,
+%  passthrough_demo), which are the publicly reproducible part.
+%
+%  Figures live in figures/ as vector PDFs, each built from the matching
+%  standalone TikZ source in the same directory (see figures/README.md for
+%  the rebuild command). Rebuild a figure whenever you edit its .tex.
+%  If you prefer ORE's official Overleaf template, paste the body sections
+%  (Introduction onward) into it; the structure already lines up.
+%
+%  Compile with pdflatex -> bibtex -> pdflatex -> pdflatex.
+%==============================================================================
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+\usepackage{microtype}
+% Keep "--" as two hyphens in typewriter text, so inline CLI flags such as
+% \texttt{--strict} print and copy correctly instead of as an en dash.
+\DisableLigatures[-]{encoding=T1,family=tt*}
+\usepackage{graphicx}
+\usepackage{placeins}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{authblk}
+\usepackage{caption}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{arrows.meta,positioning,fit,backgrounds,calc,shapes.geometric}
+\usepackage[colorlinks=true,allcolors=blue!55!black]{hyperref}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+
+\newcommand{\forge}{FORGE}
+\newcommand{\hls}{HLS}
+
+
+%---- palette -----------------------------------------------------------------
+\definecolor{forgeblue}{HTML}{1F5C99}
+\definecolor{forgebluelt}{HTML}{D6E4F0}
+\definecolor{forgeorange}{HTML}{E2552B}
+\definecolor{forgeorangelt}{HTML}{FBE2D8}
+\definecolor{forgegray}{HTML}{5B6770}
+\definecolor{forgegraylt}{HTML}{E7EAEC}
+\definecolor{forgegreenlt}{HTML}{DDEBD8}
+\definecolor{forgegreen}{HTML}{3F7D3F}
+
+%---- listings style for YAML / CLI -------------------------------------------
+\lstdefinestyle{forge}{
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  frame=single,
+  rulecolor=\color{forgegray!40},
+  backgroundcolor=\color{forgegraylt!40},
+  xleftmargin=4pt,xrightmargin=4pt,
+  aboveskip=6pt,belowskip=6pt
+}
+\lstset{style=forge}
+% Code blocks never split across pages: each listing is kept in one unbreakable box.
+\lstnewenvironment{codeblock}[1][]
+  {\endgraf\noindent\minipage{\linewidth}\lstset{#1}}
+  {\endminipage\endgraf\vspace{4pt}}
+\newcommand{\code}[1]{\texttt{\small #1}}
+
+\captionsetup{font=small,labelfont=bf}
+
+%==============================================================================
+\title{\textbf{FORGE:} Framework for Orchestrated RTL Generation and Evaluation}
+
+\author[1]{Pelayo Leguina}
+\author[1]{Santiago Folgueras}
+\affil[1]{Department of Physics, University of Oviedo, Oviedo, Spain}
+\date{}
+
+%==============================================================================
+\begin{document}
+\maketitle
+
+%------------------------------------------------------------------------------
+\begin{abstract}
+A change to an FPGA module's ports can require edits to the structural RTL, port mappings, and testbench. FORGE (Framework for Orchestrated RTL Generation and Evaluation) resolves interface contracts and a declared topology into a design model. It generates structural RTL, testbench bindings, and board payloads, and sizes delays to align paths with different declared latencies. It can also simulate an existing RTL top and check its outputs against reference data. We tested FORGE on the Phase-2 Overlap Muon Track Finder (OMTF) of the CMS Level-1 trigger. The board design has 317 instances and 4357 connections. FORGE sized twelve delays to balance four merge points. In six board-payload simulations with an earlier FORGE revision, all 602 muons matched the emulator in transverse momentum, pseudorapidity, and azimuth. Two public examples show how to verify an unmodified CMS track-finder module and trace a deliberate error in a separate payload to its event and output link.
+\end{abstract}
+
+\vspace{0.5em}
+\noindent\textbf{Keywords:} hardware framework; contract-driven design; FPGA;
+high-level synthesis; design verification; reusable infrastructure;
+clock-domain crossing; register-transfer-level simulation.
+
+\vspace{1em}
+\noindent\rule{\linewidth}{0.4pt}
+\small
+\noindent\textbf{Corresponding author:} Santiago Folgueras
+(\href{mailto:folguerassantiago@uniovi.es}{folguerassantiago@uniovi.es}).
+\normalsize
+\vspace{1em}
+
+%==============================================================================
+\input{01_introduction}
+\input{02_methods}
+\input{03_usecases}
+\input{04_conclusions}
+%==============================================================================
+
+
+
+%==============================================================================
+\section*{Data availability}
+%==============================================================================
+The cited \forge{} revision includes the public examples, reference datasets, and expected outputs~\cite{FORGE_Software}. The article repository contains the logs, run records, and derived reports cited in Section~\ref{sec:forge:use-cases}. The evidence README documents anonymization, and the validation script checks file hashes and recorded outcomes. Access to the OMTF firmware, CMS emulator reference sets, and CI records is restricted to CMS collaboration members. The article repository contains the derived OMTF reports and their hashes (Section~\ref{sec:forge:use-cases:omtf}). The archive excludes raw probe traces, HLS build directories, and board measurements.
+
+\section*{Software availability}
+\label{sec:forge:software-availability}
+
+\forge{} is distributed under the MIT license at
+\url{https://github.com/pleguina/forge}. The source revision associated with this article is
+release \texttt{v3.0.0}, commit \texttt{90ff3450157359b6abe78c97ee98cce1c345ec95}.
+% TODO before submission: deposit the v3.0.0 release with a DOI (Zenodo GitHub integration) and cite it.
+The package declares Python~$\geq3.8$, PyYAML, and Jinja2 as requirements.
+Reference consumers and their tests are included under \texttt{plugins/} and
+\texttt{forge/tests/}. The article sources and evidence bundle are maintained at
+\url{https://github.com/pleguina/forge_paper}. A release archive with a persistent
+identifier has not yet been deposited. The archived evidence and its limitations
+are described in Section~\ref{sec:forge:results}.
+
+\section*{Author contributions}
+%==============================================================================
+P.\ Leguina and S.\ Folgueras jointly designed the framework architecture and
+contract model, implemented the tooling and verification runtime, and wrote the
+manuscript.
+
+\section*{Competing interests}
+The authors declare no competing interests.
+
+\section*{Grant information}
+This work is supported by ERC grant (INTREPID, 101115353, \href{https://doi.org/10.3030/101115353}{10.3030/101115353}). Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the European Research Council Executive Agency. Neither the European Union nor the granting authority can be held responsible for them.
+
+\section*{Acknowledgements}
+The authors thank early users of the framework's reference consumers for
+feedback that shaped the command-line workflow and the core-isolation
+checks described in this article.
+
+%==============================================================================
+%  References. ORE uses a numbered Vancouver-style reference list.
+%==============================================================================
+\bibliographystyle{vancouver} % Standard Vancouver-like sequential numerical style
+\bibliography{references}   % Name of your references.bib file
+
+\end{document}

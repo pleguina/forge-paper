@@ -1,0 +1,71 @@
+\documentclass[border=4pt]{standalone}
+\input{forge_style.tex}
+\begin{document}
+\begin{tikzpicture}
+\def\colA{25mm}\def\colB{27mm}\def\colC{28mm}\def\colD{30mm}
+\def\xB{38.5mm}\def\xC{78.5mm}\def\xD{121mm}
+
+% ---- OMTF project inputs ----------------------------------------------------------
+\node[inbox, text width=\colA] (f) at (0,0)
+  {Board framework\\{\scriptsize\color{subink}manifests}};
+\node[inbox, text width=\colA] (m) at (0,-14mm)
+  {Module sources\\{\scriptsize\color{subink}26 HLS + RTL}};
+\node[inbox, text width=\colA] (k) at (0,-26.5mm)
+  {Contracts\\{\scriptsize\color{subink}32 modules}};
+\node[inbox, text width=\colA] (t) at (0,-38mm)
+  {Topology\\{\scriptsize\color{subink}two design variants}};
+
+% ---- FORGE v3.0.0: two resolved designs ---------------------------------------------
+\node[modelbox, text width=\colB, line width=1.3pt] (ir1) at (\xB,-4mm)
+  {\textbf{Board design}\\{\scriptsize\color{subink}317 instances}};
+\node[modelbox, text width=\colB, line width=1.3pt] (ir2) at (\xB,-38mm)
+  {\textbf{Simulation design}\\{\scriptsize\color{subink}298 instances}};
+
+% ---- Generated ----------------------------------------------------------------------
+\node[genbox, text width=\colC] (bd) at (\xC,3mm)
+  {Block design\\{\scriptsize\color{subink}543 cells}};
+\node[genbox, text width=\colC] (p) at (\xC,-12mm)
+  {Board payload\\{\scriptsize\color{subink}103 links}};
+\node[genbox, text width=\colC] (v) at (\xC,-38mm)
+  {Verilog full-chip top};
+
+% ---- Checked by the project's continuous integration ---------------------------------
+\node[outbox, text width=\colD] (rv) at (\xD,3mm)
+  {Vivado, VU13P\\{\scriptsize\color{subink}bitstream}};
+\node[outbox, text width=\colD] (rp) at (\xD,-16mm)
+  {Payload replays\\{\scriptsize\color{subink}602/602 vs CMSSW}};
+\node[outbox, text width=\colD] (rx) at (\xD,-38mm)
+  {Xsim regression\\{\scriptsize\color{subink}12924/12924 vs CMSSW}};
+
+% ---- Groups -------------------------------------------------------------------------
+\begin{scope}[on background layer]
+  \node[groupbg=accInput, fit=(f)(t), inner sep=3pt] (g1) {};
+  \node[groupbg=accModel, fit=(ir1)(ir2), inner sep=3pt] (g2) {};
+  \node[groupbg=accGen, fit=(bd)(v), inner sep=3pt] (g3) {};
+\end{scope}
+\node[grouptitle=accInput, above=1pt of g1.north] {OMTF PROJECT};
+\node[grouptitle=accModel, above=1pt of g2.north] {INSPECTED AT v3.0.0};
+\node[grouptitle=accGen, above=1pt of g3.north] {GENERATED};
+\node[grouptitle=ink!70, above=1pt of rv.north] {HISTORICAL CI};
+
+% ---- Flows --------------------------------------------------------------------------
+\draw[flow] (f.east) -- (f.east -| g1.east) -- ++(3mm,0) |- ($(ir1.west)+(0,3mm)$);
+\coordinate (j1) at ($(g1.east)+(3mm,0)$);
+\foreach \n in {m,k,t} { \draw[draw=ink!70, line width=0.9pt] (\n.east) -- (j1 |- \n); }
+\draw[draw=ink!70, line width=0.9pt] (j1 |- m) -- (j1 |- t);
+\draw[flow] (j1 |- m) |- ($(ir1.west)+(0,-3mm)$);
+\draw[flow] (j1 |- t) -- (ir2.west);
+
+\coordinate (j2) at ($(g2.east)+(3mm,0)$);
+\draw[accModel, line width=1.1pt] (ir1.east) -- (j2 |- ir1);
+\draw[accModel, line width=1.1pt] (j2 |- bd) -- (j2 |- p);
+\foreach \n in {bd,p} { \draw[flowmodel] (j2 |- \n) -- (\n.west); }
+\draw[flowmodel] (ir2.east) -- (v.west);
+
+\draw[flow] (bd.east) -- (rv.west);
+\draw[flow] (p.east) -- ++(3mm,0) |- ($(rv.west)+(0,-3mm)$);
+\draw[flow] (p.east) -- ++(3mm,0) |- (rp.west);
+\draw[flow] (v.east) -- (rx.west);
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,50 @@
+% Shared style for FORGE paper figures (standalone, vector PDF)
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}      % Latin Modern sans serif for diagrams
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{microtype}
+\DisableLigatures[-]{encoding=T1,family=tt*}  % keep -- as two hyphens in CLI flags
+\usepackage{textcomp}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,fit,backgrounds,shapes.geometric,shapes.misc,decorations.pathreplacing}
+
+% ---- Moderate accent palette -------------------------------------------------
+\definecolor{ink}{HTML}{222831}        % near-black text/borders
+\definecolor{subink}{HTML}{5B6470}     % secondary text
+\definecolor{accInput}{HTML}{2F5C9E}   % blue  -> plugin inputs
+\definecolor{accModel}{HTML}{2A9D8F}   % teal  -> validated model / core
+\definecolor{accGen}{HTML}{D7892B}     % amber -> generators / outputs
+\definecolor{accVerif}{HTML}{6A4C93}   % purple-> verification
+\definecolor{accMuted}{HTML}{8A94A3}   % grey  -> not-exercised / external
+
+\colorlet{fillInput}{accInput!10}
+\colorlet{fillModel}{accModel!14}
+\colorlet{fillGen}{accGen!14}
+\colorlet{fillVerif}{accVerif!12}
+\colorlet{fillMuted}{accMuted!14}
+\colorlet{fillPlain}{black!4}
+
+% ---- Node styles -------------------------------------------------------------
+\tikzset{
+  font=\sffamily,
+  >={Stealth[length=2.6mm,width=2.0mm]},
+  base/.style={
+    rounded corners=2pt, draw, line width=0.7pt,
+    align=center, inner sep=5pt, text=ink,
+    minimum height=10mm, font=\small},
+  inbox/.style   ={base, draw=accInput, fill=fillInput},
+  modelbox/.style={base, draw=accModel, fill=fillModel, line width=1.0pt},
+  genbox/.style  ={base, draw=accGen,   fill=fillGen},
+  verbox/.style  ={base, draw=accVerif, fill=fillVerif},
+  mutedbox/.style={base, draw=accMuted, fill=fillMuted, text=subink},
+  outbox/.style  ={base, draw=ink!55,   fill=fillPlain},
+  title/.style   ={font=\bfseries\small, text=ink},
+  grouptitle/.style={font=\bfseries\footnotesize, text=#1},
+  lbl/.style     ={font=\scriptsize, text=subink, inner sep=2pt},
+  flow/.style    ={draw=ink!70, line width=0.9pt, ->},
+  flowmuted/.style={draw=accMuted, line width=0.8pt, ->, densely dashed},
+  flowmodel/.style={draw=accModel, line width=1.1pt, ->},
+  groupbg/.style ={rounded corners=4pt, draw=#1!55, line width=0.7pt,
+                   fill=#1!5, dash pattern=on 3pt off 2pt},
+}

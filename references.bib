@@ -1,0 +1,178 @@
+% =============================================================================
+%  forge_paper.bib
+%  Bibliography for: "FORGE: a contract-driven framework for reusable
+%  hardware integration and verification"
+%  Software Tool Article -- Open Research Europe
+% =============================================================================
+
+@manual{IEEE_IPXACT_1685_2022,
+  author       = {{IEEE}},
+  title        = {{IEEE Standard for IP-XACT, Standard Structure for Packaging, Integrating, and Reusing IP within Tool Flows}},
+  organization = {IEEE},
+  number       = {IEEE Std 1685-2022},
+  year         = {2022},
+  url          = {https://standards.ieee.org/ieee/1685/10583/},
+  note         = {Supersedes IEEE Std 1685-2014; published 2023}
+}
+
+@manual{Accellera_SystemRDL_2018,
+  author       = {{Accellera Systems Initiative}},
+  title        = {{SystemRDL 2.0 Register Description Language Specification}},
+  organization = {Accellera Systems Initiative},
+  year         = {2018},
+  url          = {https://www.accellera.org/downloads/standards/systemrdl},
+  note         = {Standard specification}
+}
+
+@manual{Accellera_UVM,
+  author       = {{IEEE}},
+  title        = {{IEEE Standard for Universal Verification Methodology (UVM) Language Reference Manual}},
+  organization = {IEEE},
+  number       = {IEEE Std 1800.2-2020},
+  year         = {2020},
+  doi          = {10.1109/IEEESTD.2020.9195920},
+  url = {https://doi.org/10.1109/IEEESTD.2020.9195920},
+  note         = {Accellera Universal Verification Methodology}
+}
+
+@misc{ipbb_firmware_builder,
+  author       = {{CMS IPbus / ipbb developers}},
+  title        = {{ipbb: the IPbus Builder firmware build tool}},
+  howpublished = {\url{https://github.com/ipbus/ipbb}},
+  year         = {2026},
+  note         = {Accessed 2026}
+}
+
+@article{GhabrousLarrea2015_IPbus,
+  author  = {Ghabrous Larrea, C. and Harder, K. and Newbold, D. and Sankey, D. and Rose, A. and Thea, A. and Williams, T.},
+  title   = {{IPbus: a flexible Ethernet-based control system for xTCA hardware}},
+  journal = {JINST},
+  volume  = {10},
+  year    = {2015},
+  pages   = {C02019},
+  doi     = {10.1088/1748-0221/10/02/C02019},
+  url = {https://doi.org/10.1088/1748-0221/10/02/C02019},
+}
+
+@inproceedings{Kindgren2019_FuseSoC,
+  author    = {Kindgren, Olof},
+  title     = {{A Scalable Approach to IP Management with FuseSoC}},
+  booktitle = {Proceedings of the Workshop on Open Source Design Automation (OSDA)},
+  year      = {2019},
+  url       = {https://osda.gitlab.io/19/kindgren.pdf},
+  note      = {Co-located with DATE 2019}
+}
+
+@article{Biesuz2023_Hog,
+  author  = {Biesuz, N. V. and Cieri, D. and Gonnella, F. and {Loustau De Linares}, G. and Peck, A.},
+  title   = {{Hog (HDL on Git): An easy system to handle HDL on a git-based repository}},
+  journal = {Nuclear Instruments and Methods in Physics Research Section A},
+  volume  = {1049},
+  pages   = {168016},
+  year    = {2023},
+  doi     = {10.1016/j.nima.2023.168016},
+  url = {https://doi.org/10.1016/j.nima.2023.168016},
+}
+
+@misc{cocotb,
+  author       = {{cocotb developers}},
+  title        = {{cocotb: a coroutine-based cosimulation library for writing VHDL and Verilog testbenches in Python}},
+  howpublished = {\url{https://www.cocotb.org}},
+  year         = {2026},
+  note         = {Accessed 2026}
+}
+
+@inproceedings{Bachrach2012_Chisel,
+  author    = {Bachrach, Jonathan and Vo, Huy and Richards, Brian and Lee, Yunsup and Waterman, Andrew and Avi\v{z}ienis, Rimas and Wawrzynek, John and Asanovi\'{c}, Krste},
+  title     = {{Chisel: Constructing Hardware in a Scala Embedded Language}},
+  booktitle = {Proceedings of the 49th Annual Design Automation Conference (DAC)},
+  pages     = {1216--1225},
+  year      = {2012},
+  doi       = {10.1145/2228360.2228584},
+  url = {https://doi.org/10.1145/2228360.2228584},
+}
+
+% =============================================================================
+%  Toolchain and runtime dependencies.
+% =============================================================================
+
+@manual{AMD_Vivado_LogicSimulation_UG900,
+  author       = {{AMD}},
+  title        = {{Vivado Design Suite User Guide: Logic Simulation}},
+  organization = {AMD},
+  number       = {UG900},
+  edition      = {2024.1},
+  year         = {2024},
+  note         = {Vivado simulator (xsim); Vivado 2024.1 used for the results reported here}
+}
+
+@manual{AMD_Vivado_IPI_UG994,
+  author       = {{AMD}},
+  title        = {{Vivado Design Suite User Guide: Designing IP Subsystems Using IP Integrator}},
+  organization = {AMD},
+  number       = {UG994},
+  edition      = {2024.1},
+  year         = {2024},
+  url          = {https://docs.amd.com/r/2024.1-English/ug994-vivado-ip-subsystems}
+}
+
+@misc{Python_Language,
+  author       = {{Python Software Foundation}},
+  title        = {{The Python Language Reference}},
+  howpublished = {\url{https://www.python.org}},
+  year         = {2026},
+  note         = {Python 3.8 or later required by \texttt{forge}}
+}
+
+@misc{Jinja2,
+  author       = {{Pallets}},
+  title        = {{Jinja: a templating engine for Python}},
+  howpublished = {\url{https://palletsprojects.com/p/jinja/}},
+  year         = {2026},
+  note         = {Template engine used by the \texttt{forge} generators}
+}
+
+@misc{PyYAML,
+  author       = {{PyYAML developers}},
+  title        = {{PyYAML: YAML parser and emitter for Python}},
+  howpublished = {\url{https://pyyaml.org}},
+  year         = {2026},
+  note         = {YAML parser used to load contracts, topologies and registries}
+}
+
+@manual{AMD_VitisHLS_UG1399,
+  author       = {{AMD}},
+  title        = {{Vitis High-Level Synthesis User Guide}},
+  organization = {AMD},
+  number       = {UG1399},
+  edition      = {2024.1},
+  year         = {2024},
+  url          = {https://docs.amd.com/r/2024.1-English/ug1399-vitis-hls},
+  urldate      = {2026-09-17}
+}
+
+@misc{FORGE_Software,
+  author       = {Leguina, Pelayo and Folgueras, Santiago},
+  title        = {{FORGE: Framework for Orchestrated RTL Generation and Evaluation}},
+  howpublished = {\url{https://github.com/pleguina/forge}},
+  year         = {2026},
+  note         = {Release v3.0.0, commit 90ff345, MIT-licensed}
+}
+
+@techreport{CMS_2020_L1TriggerUpgrade_TDR,
+  author      = {{CMS Collaboration}},
+  title       = {{The Phase-2 Upgrade of the CMS Level-1 Trigger}},
+  institution = {CERN},
+  type        = {Technical Design Report},
+  number      = {CERN-LHCC-2020-004, CMS-TDR-021},
+  year        = {2020},
+  url         = {https://cds.cern.ch/record/2714892}
+}
+
+@misc{L1TK_firmware_hls,
+  author       = {{CMS L1 Track Trigger}},
+  title        = {{firmware-hls: HLS firmware of the CMS Level-1 track finder}},
+  howpublished = {\url{https://github.com/cms-L1TK/firmware-hls}},
+  note         = {Revision 898d6e28f78fba7c1eb97380223993a98e5f105b},
+  year         = {2026}
+}

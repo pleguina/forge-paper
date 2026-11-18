@@ -1,0 +1,11 @@
+\section{Discussion}
+\label{sec:forge:conclusions}
+\label{sec:forge:limitations}
+
+The OMTF project used the same module contracts for its simulation top and board design. The project captured board-specific behavior in payload policies and gave FORGE the module latencies needed to calculate alignment delays. Measuring the effect on engineering effort would require comparing how developers handle the same integration and maintenance tasks with another workflow.
+
+The public examples use existing RTL and reference data, so readers can reproduce the comparisons and replay the injected error. The OMTF evidence is limited to reports derived from simulation and implementation with restricted CMS inputs.
+
+The latency checker keeps clock domains separate and checks a bounded latency at the merge it reaches. It does not propagate the interval through later stages. The CDC simulation covers the transfers in the reference test. Other clock ratios and traffic patterns require further tests, and metastability requires a separate assessment. The throughput probe infers transfers from FIFO status sampled on one clock. A sustained-load measurement would need handshake counters sampled in each domain.
+
+The generator regression compares the IR-based and earlier generation paths on two reference designs. Reference simulations compare the outputs against project data. The VHDL wrapper still needs downstream validation. The common vocabulary retains synchronization, cycle-counter, and reference-hit roles from bunch-crossing trigger designs. Projects can define their own roles, and the source check rejects detector names in the framework packages. An evaluation in other projects should record where the common roles suffice and where developers need project-specific contracts.
